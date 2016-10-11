@@ -8,6 +8,38 @@ namespace Stacks
 {
     class Program
     {
+        public static bool IsBalanced2(string input)
+        {
+            var stack = new Stack<char>();
+
+            foreach (var c in input)
+            {
+                if (c == '[' || c == '(' || c == '{')
+                {
+                    stack.Push(c);
+
+                }
+                else if (c == ']')
+                {
+                    if (stack.Count == 0) return false;
+                    if (stack.Pop() != '[') return false;
+
+                }
+                else if (c == ')')
+                {
+                    if (stack.Count == 0) return false;
+                    if (stack.Pop() != '(') return false;
+
+                }
+                else if (c == '}')
+                {
+                    if (stack.Count == 0) return false;
+                    if (stack.Pop() != '{') return false;
+                }
+            }
+            return stack.Count == 0;
+        }
+
         public static bool IsBalanced(string input)
         {
             var pairs = new Dictionary<char, char> { { '}','{' }, { ']','[' }, { ')', '('} };
@@ -39,7 +71,7 @@ namespace Stacks
 
             var input = "{{[[(())]]}}";
 
-            Console.WriteLine(IsBalanced(input) ? "Yes" : "No");
+            Console.WriteLine(IsBalanced2(input) ? "Yes" : "No");
 
             Console.ReadLine();
         }
